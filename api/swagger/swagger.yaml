@@ -1,0 +1,105 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: State of California POC
+host: localhost:10010
+basePath: /
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+x-a127-config: {}
+x-a127-services: {}
+paths:
+  /persons/{id}/events:
+    x-swagger-router-controller: persons
+    x-a127-apply: {}
+    get:
+      description: Returns details about a person
+      operationId: persons
+      parameters:
+      - name: id
+        in: path
+        description: The identification number of a person
+        required: true
+        type: string
+      - name: role
+        in: query
+        description: Filter by role
+        required: false
+        type: string
+      - name: date-before
+        in: query
+        description: Filter by start date
+        required: false
+        type: string
+      - name: date-after
+        in: query
+        description: Filter by end date
+        required: false
+        type: string
+      - name: type
+        in: query
+        description: Filter by type
+        required: false
+        type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/PersonsResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+definitions:
+  eventItem:
+    properties:
+      eventId:
+        type: integer
+      date:
+        type: string
+        format: date
+      type:
+        type: string
+      status:
+        type: string
+      eventDetails:
+        type: string
+      personsInvolved:
+        type: array
+        items:
+          $ref: "#/definitions/personsInvolvedItem"
+  personsInvolvedItem:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      role:
+        type: string
+      relationship:
+        type: string
+  PersonsResponse:
+    properties:
+      personId:
+        type: integer
+      filter:
+        type: string
+      relationships:
+        type: array
+        items:
+          type: integer
+      events:
+        type: array
+        items:
+          $ref: "#/definitions/eventItem"
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
