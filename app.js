@@ -3,6 +3,7 @@
 var a127 = require('a127-magic');
 var express = require('express');
 var app = express();
+var mongoose = require('mongoose');
 
 module.exports = app; // for testing
 
