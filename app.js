@@ -6,6 +6,9 @@ var app = express();
 
 module.exports = app; // for testing
 
+//Connect db
+mongoose.connect('mongodb://localhost:27017/poc');
+
 // initialize a127 framework
 a127.init(function(config) {
 
