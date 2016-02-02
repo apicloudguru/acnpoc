@@ -8,24 +8,28 @@
   "license": "",
   "main": "app.js",
   "dependencies": {
-    "express": "3.x.x",
     "a127-magic": "^0.11.0",
+    "async": "^1.5.2",
+    "express": "3.x.x",
+    "mongoose": "^4.4.0",
+    "mocha": "^2.4.5",
     "volos-analytics-apigee": "",
     "volos-analytics-common": "",
     "volos-analytics-memory": "",
     "volos-cache-apigee": "",
     "volos-cache-memory": "",
     "volos-cache-redis": "",
+    "volos-oauth-apigee": "",
+    "volos-oauth-redis": "",
     "volos-quota-apigee": "",
     "volos-quota-memory": "",
     "volos-quota-redis": "",
-    "volos-spikearrest-memory": "",
-    "volos-oauth-redis": "",
-    "volos-oauth-apigee": ""
+    "volos-spikearrest-memory": ""
   },
   "devDependencies": {
     "should": "4.4.x",
-    "supertest": "0.15.x"
+    "supertest": "0.15.x",
+    "mockgoose": "4.0.x"
   },
   "scripts": {
     "start": "node app.js"
