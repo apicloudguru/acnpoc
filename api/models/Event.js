@@ -7,7 +7,6 @@ var involed = new Schema({
 });
 
 var schema = new Schema({
-		_id: { type: String, required: true },
 		date: { type: Date, required: true},
 		type: { type: String, required: true},
 		status: { type: String, enum: ["Substantiated", "Unsubstatiated"]},

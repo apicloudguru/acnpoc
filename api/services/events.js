@@ -1,8 +1,8 @@
-var models = require('../models');
+var Event = require('../models/Event');
 
 var getEventsByPersonIds = function (ids, next) {
 	
-	models.Event.find({involed.id: ids}, function(err, events) {
+	Event.find({'involed.id': { $in: ids} }, function(err, events) {
 		if (err) {
 			return next(err);
 		}
@@ -13,11 +13,15 @@ var getEventsByPersonIds = function (ids, next) {
 
 var createEvent = function (event, next) {
 
-	var newEvent = new Models.Event();
+	var newEvent = new Event();
 
-	newEvent = event;
+	newEvent.date =  event.date;
+	newEvent.type = event.type;
+	newEvent.status = event.status;
+	newEvent.eventDetails = event.eventDetails;
+	newEvent.personsInvolved = event.personsInvolved;
 
-	event.save(function(err) {
+	newEvent.save(function(err) {
 		if (err) {
 			return next(err);
 		}
