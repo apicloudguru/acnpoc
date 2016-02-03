@@ -12,7 +12,11 @@
  */
 var util = require('util');
 var request = require('request');
-//var Event = require('../models/event.js');
+var Event = require('../models/Event.js');
+var Person = require('../models/Person.js');
+var eventService = require('../services/events.js');
+var personService = require('../services/persons.js');
+
 /*
  Once you 'require' a module you can reference the things that it exports.  These are defined in module.exports.
 
@@ -37,54 +41,11 @@ module.exports = {
  */
 function persons(req, res) {
   // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
-  var person = {};
-  person.personId = parseInt(req.swagger.params.id.value);
-  person.filter = req.url.split('?')[1];
-  // Using mock data for event model
-  person.relationships = [];
-  person.relationships.push(9876);
-  person.relationships.push(1111);
-  person.events = [];
-  var personsInvolved = [];
-  personsInvolved.push({
-    'id:' : person.personId,
-    'name' : 'Jose Garcia',
-    'role' : 'victim',
-    'relationship' : 'self'
+  personService.getPersonbyId(req.swagger.params.id.value, function(err, result) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(result);
   });
-  personsInvolved.push({
-    'id' : 37167,
-    'name' : 'Raul Garcia',
-    'role' : 'alleged',
-    'relationship' : 'father'
-  });
-  person.events.push({
-    'eventId' : 9876,
-    'date' : '2007-01-21',
-    'type' : 'allegation',
-    'status' : 'substantiated',
-    'eventDetails' : '/events/9876',
-    'personsInvolved' : personsInvolved
-  });
-  person.events.push({
-    'eventId' : 9877,
-    'date' : '2007-01-22',
-    'type' : 'allegation',
-    'status' : 'unsubstantiated',
-    'eventDetails' : '/events/9877',
-    'personsInvolved' : personsInvolved
-  });
-
-  // testing querying for later
-  /*
-  Event.
-    find({}).
-    where('personsInvolved[*].role').equals(req.swagger.params.role.value).
-    where('date').gt(req.swagger.params[date-before].value).lt(req.swagger.params[date-after].value).
-    where('type').equals(req.swagger.params.type.value).
-    exec(callback);
-  */
-
-  res.json(person);
   // this sends back a JSON response which is a single string
 }
