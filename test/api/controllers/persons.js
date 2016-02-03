@@ -19,8 +19,8 @@ describe('controllers', function() {
           .expect(200)
           .end(function(err, res) {
             should.not.exist(err);
-
-            res.body.personId.should.eql(12345);
+            
+            res.body.id.should.eql(12345);
 
             done();
           });
