@@ -63,7 +63,6 @@ definitions:
     #    type: integer
       date:
         type: string
-        format: date
       type:
         type: string
       status:
@@ -100,7 +99,6 @@ definitions:
         type: string
       DOB:
         type: string
-        format: date
       SSN:
         type: string
       gender:
@@ -111,10 +109,10 @@ definitions:
         type: array
         items:
           type: string
-    #  events:
-    #    type: array
-    #    items:
-    #      $ref: "#/definitions/eventItem"
+      events:
+        type: array
+        items:
+          $ref: "#/definitions/eventItem"
   ErrorResponse:
     required:
       - message
