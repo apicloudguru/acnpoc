@@ -11,7 +11,8 @@ var Person = mongoose.model('Person');
 
 before(function (done) {
     mongoose.connect('mongodb://localhost:27017/poc');
-    //Create test users
+    
+    //Create test persons
     async.parallel([
             function(next){
                 person1 = new Person({

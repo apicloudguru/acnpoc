@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var involed = new Schema({
-	_id: { type: String},
+	personId: { type: Number},
 	role: { type: String}
 });
 
@@ -14,7 +14,7 @@ var schema = new Schema({
 		personsInvolved: [ involed ]
 });
 
-schema.index({ "personsInvolved._id": 1}, { unique: true });
+schema.index({ "personsInvolved.personId": 1});
 
 module.exports = mongoose.model('Event', schema);
 
