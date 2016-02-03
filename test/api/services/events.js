@@ -20,10 +20,11 @@ before(function (done) {
 					type: "Neglect",
 					status: "Substantiated",
 					eventDetails: "http://",
-					personsInvolved: [ 
+					roles: [ 
 						{ personId: 123, role: "victim"},
 						{ personId: 456, role: "alleged"} 
-					]
+					],
+					personsInvolved: [123, 456]
                 });
                 event1.save(next);
             },
@@ -31,12 +32,13 @@ before(function (done) {
                 event2 = new Event({
                 	date: "01/01/2015",
 					type: "Physical Abuse",
-					status: "Unsubstantiated",
+					status: "Unsubstatiated",
 					eventDetails: "http://",
-					personsInvolved: [ 
+					roles: [ 
 						{ personId: 123, role: "victim"},
 						{ personId: 789, role: "alleged"} 
-					]
+					],
+					personsInvolved: [123, 789]
                 });
                 event2.save(next);
             },
@@ -46,11 +48,12 @@ before(function (done) {
 					type: "Physical Abuse",
 					status: "Unsubstantiated",
 					eventDetails: "http://",
-					personsInvolved: [ 
+					roles: [ 
 						{ personId: 466, role: "alleged"},
 						{ personId: 789, role: "alleged"},
 						{ personId: 77, role: "victim"}
-					]
+					],
+					personsInvolved: [466, 789, 77]
                 });
                 event3.save(next);
             },
@@ -60,11 +63,13 @@ before(function (done) {
 					type: "Sexual Abuse",
 					status: "Substantiated",
 					eventDetails: "http://",
-					personsInvolved: [ 
+					roles
+					: [ 
 						{ personId: 466, role: "alleged"},
 						{ personId: 555, role: "victim"},
 						{ personId: 987, role: "victim"},
-					]
+					],
+					personsInvolved: [466, 555, 987]
                 });
                 event4.save(next);
             },
@@ -74,11 +79,12 @@ before(function (done) {
 					type: "Sexual Abuse",
 					status: "Substantiated",
 					eventDetails: "http://",
-					personsInvolved: [ 
+					roles: [ 
 						{ personId: 77, role: "alleged"},
 						{ personId: 222, role: "victim"},
 						{ personId: 111, role: "victim"},
-					]
+					],
+					personsInvolved: [77, 222, 111]
                 });
                 event5.save(next);
             },
@@ -88,11 +94,12 @@ before(function (done) {
 					type: "Sexual Abuse",
 					status: "Substantiated",
 					eventDetails: "http://",
-					personsInvolved: [ 
+					roles: [ 
 						{ personId: 4123, role: "alleged"},
 						{ personId: 513, role: "victim"},
 						{ personId: 413, role: "victim"},
-					]
+					],
+					personsInvolved: [4123, 513, 413]
                 });
                 event6.save(next);
             }
@@ -111,15 +118,41 @@ describe("Event Service", function() {
 				type: "Sexual Abuse",
 				status: "Substantiated",
 				eventDetails: "http://",
-				personsInvolved: [ 
+				roles: [ 
 					{ personId: 90, role: "alleged"},
 					{ personId: 91, role: "victim"}
-				]
+				],
+				personsInvolved: [90, 91]
+
 			}
 			eventsService.createEvent(event, function(err, results) {
 				should.not.exist(err);
 				should.exist(results);
 				results.should.equal("Event Created");
+				done();
+			})
+		})
+	})
+
+	describe("Find Events", function () {
+		it("Should find two event by persons ids", function (done) {
+			id = [ 123 ]
+			eventsService.getEventsByPersonIds(id, function (err, events) {
+				should.not.exist(err);
+				should.exist(events);
+				events.length.should.equal(2);
+				done();
+			})
+		})
+	})
+
+	describe("Find Events", function () {
+		it("Should find none event by persons ids", function (done) {
+			id = [ 9898989 ]
+			eventsService.getEventsByPersonIds(id, function (err, events) {
+				should.not.exist(err);
+				should.exist(events);
+				events.length.should.equal(0);
 				done();
 			})
 		})

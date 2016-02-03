@@ -11,10 +11,10 @@ var schema = new Schema({
 		type: { type: String, required: true},
 		status: { type: String, enum: ["Substantiated", "Unsubstatiated"]},
 		eventDetails: { type: String },
-		personsInvolved: [ involed ]
+		personsInvolved: [ Number ],
+		roles: [ involed ]
 });
 
-schema.index({ "personsInvolved.personId": 1});
-
 module.exports = mongoose.model('Event', schema);
+
 
