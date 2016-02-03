@@ -55,6 +55,27 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+  /events/{id}:
+    x-swagger-router-controller: events
+    x-a127-apply: {}
+    get:
+      description: Returns details about an event
+      operationId: events
+      parameters:
+      - name: id
+        in: path
+        description: The identification number of an event
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/eventItem"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
 definitions:
   eventItem:
     properties:
