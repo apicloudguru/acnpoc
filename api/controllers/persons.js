@@ -2,9 +2,6 @@
 
 var util = require('util');
 var request = require('request');
-//var Event = require('../models/Event.js');
-//var Person = require('../models/Person.js');
-//var eventService = require('../services/events.js');
 var personService = require('../services/persons.js');
 
 module.exports = {
