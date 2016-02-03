@@ -21,8 +21,7 @@ var createPerson = function (person, next) {
 }
 
 var getPersonbyId = function(id, next) {
-
-	Person.findOne({"id": id}, function(err, person) {
+	Person.findOne({id: id}, function(err, person) {
 		if (err) {
 			return next(err);
 		}
@@ -36,7 +35,8 @@ var getListofIds = function(id, next) {
 		if (err) {
 			return next(err);
 		}
-		next(null, person.relationships.push(id));
+		person.relationships.push(id);
+		next(null, person.relationships);
 	});
 }
 

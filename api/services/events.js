@@ -14,7 +14,6 @@ var getEventsByPersonIds = function (ids, next) {
 var createEvent = function (event, next) {
 
 	var newEvent = new Event();
-
 	newEvent.date =  event.date;
 	newEvent.type = event.type;
 	newEvent.status = event.status;

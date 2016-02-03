@@ -32,7 +32,8 @@
     "mockgoose": "4.0.x"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "./node_modules/mocha/bin/mocha ./test/api/**/*.js --reporter spec"
   },
   "api": {
     "name": "ca-poc",

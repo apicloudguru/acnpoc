@@ -11,7 +11,6 @@ var Person = mongoose.model('Person');
 
 before(function (done) {
     mongoose.connect('mongodb://localhost:27017/poc');
-
     //Create test users
     async.parallel([
             function(next){
@@ -20,7 +19,7 @@ before(function (done) {
 	                firstName: "aaa",
 	                lastName: "ccc",
 	                DOB: "12/24/1990",
-	                SNN: "453-23-2342",
+	                SSN: "453-23-2342",
 	                age: 23,
 	                gender: "Male",
 	                relationships: [456]
@@ -33,7 +32,7 @@ before(function (done) {
                 	firstName: "bbb",
                 	lastName: "ccc",
                 	DOB: "12/24/1930",
-                	SNN: "135-13-1341",
+                	SSN: "135-13-1341",
                 	age: 60,
                 	gender: "Female",
                 	relationships: [123]
@@ -46,7 +45,7 @@ before(function (done) {
 	                firstName: "no",
 	                lastName: "relationships",
 	                DOB: "02/24/1990",
-	                SNN: "540-22-1222",
+	                SSN: "540-22-1222",
 	                age: 4,
 	                gender: "Male"
                 });
@@ -58,7 +57,7 @@ before(function (done) {
 	                firstName: "ddd",
 	                lastName: "yyy",
 	                DOB: "10/31/2014",
-	                SNN: "800-55-2331",
+	                SSN: "800-55-2331",
 	                age: 4,
 	                gender: "Female",
 	                relationships: [98, 234, 634]
@@ -71,7 +70,7 @@ before(function (done) {
 	                firstName: "fff",
 	                lastName: "yyyy",
 	                DOB: "10/31/2015",
-	                SNN: "800-55-2323",
+	                SSN: "800-55-2323",
 	                age: 5,
 	                gender: "Female",
 	                relationships: [77, 234, 634]
@@ -84,7 +83,7 @@ before(function (done) {
 	                firstName: "ddd",
 	                lastName: "yyy",
 	                DOB: "10/31/2014",
-	                SNN: "800-55-2331",
+	                SSN: "800-55-2331",
 	                age: 4,
 	                gender: "Female",
 	                relationships: [98, 77]
@@ -97,7 +96,7 @@ before(function (done) {
 	                firstName: "ttt",
 	                lastName: "zzz",
 	                DOB: "09/12/1974",
-	                SNN: "800-55-2331",
+	                SSN: "800-55-2331",
 	                age: 45,
 	                gender: "Male",
 	                relationships: [98, 77]
@@ -111,18 +110,8 @@ before(function (done) {
 
 describe("Persons Service", function() {
 
-	describe("Find User By Id", function () {
-		it("should get correct person", function (done) {
-			personService.getPersonbyId(123, function(err, person) {
-				should.not.exist(err);
-				should.exist(person);
-				done();
-			});
-		});
-	})
-
 	describe("Create Person", function () {
-        it("should create person", function (done) {
+        it("should create person", function (done) { 
             person = {
                 id: 341324,
                 firstName: "aaa",
@@ -132,16 +121,70 @@ describe("Persons Service", function() {
                 age: 23,
                 gender: "Male",
                 relationships: [978, 234, 634, 2434]
-            }
+            }           
             personService.createPerson(person, function (err, result) {
                 should.not.exist(err);
                 should.exist(result);
                 Person.findOne({id: person.id}, function (err, user) {
                     should.exist(user);
+                    user.firstName.should.equal(person.firstName);
                     done();
                 });
             });
         });
     })
+
+    describe("Find User By Id", function () {
+        it("should get correct person", function (done) {
+            personService.getPersonbyId(123, function(err, person) {
+                should.not.exist(err);
+                should.exist(person);
+                done();
+            });
+        });
+    })
+
+    describe("Get Collection of ids", function() {
+
+        it("Should return two ids", function (done) {
+            personService.getListofIds(123, function (err, results) {
+                should.not.exist(err);
+                should.exist(results);
+                results.length.should.equal(2);
+                done();
+            });
+        })
+
+        it("Should return one id", function (done) {
+            personService.getListofIds(789, function (err, results) {
+                should.not.exist(err);
+                should.exist(results);
+                results.length.should.equal(1);
+                done();
+            });
+        })
+
+        it("Should have relationship", function (done) {
+            personService.getListofIds(77, function (err, results) {
+                should.not.exist(err);
+                should.exist(results);
+                results.length.should.equal(4);
+                results.indexOf(234).should.not.equal(-1);
+                done();
+            });
+        })
+
+        it("Should not have relationship", function (done) {
+            personService.getListofIds(634, function (err, results) {
+                should.not.exist(err);
+                should.exist(results);
+                results.length.should.equal(3);
+                results.indexOf(234).should.equal(-1);
+                done();
+            });
+        })
+    })
+
+
 })
 
