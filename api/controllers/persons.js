@@ -18,7 +18,10 @@ function persons(req, res) {
       if (err) {
         res.send(err);
       };
-      res.json(result);
+      var person = {};
+      person.id = parseInt(req.swagger.params.id.value);
+      person.events = result;
+      res.json(person);
     })
   });
 }
