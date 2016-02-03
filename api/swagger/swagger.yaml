@@ -85,10 +85,22 @@ definitions:
         type: string
   PersonsResponse:
     properties:
-      personId:
+      id:
         type: integer
       filter:
         type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      DOB:
+        type: string
+      SSN:
+        type: string
+      gender:
+        type: string
+      age:
+        type: integer
       relationships:
         type: array
         items:
