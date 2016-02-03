@@ -2,8 +2,6 @@ var should = require('should');
 var request = require('supertest');
 var server = require('../../../app');
 
-var personService = require('../../../api/services/persons.js')
-
 process.env.A127_ENV = 'test';
 
 describe('controllers', function() {
@@ -15,17 +13,14 @@ describe('controllers', function() {
       it('should return information based on given id', function(done) {
 
         request(server)
-          .get('/persons/9996/events')
+          .get('/persons/12345/events')
           .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
           .expect(200)
           .end(function(err, res) {
-
-            personService.getPersonbyId(9996, function(err, result) {
-                should.not.exist(err);
-                should.exist(result);
-                result.id.should.eql(9996);
-            })
+            should.not.exist(err);
+            
+            res.body.id.should.eql(12345);
 
             done();
           });
