@@ -26,26 +26,6 @@ paths:
         description: The identification number of a person
         required: true
         type: string
-      - name: role
-        in: query
-        description: Filter by role
-        required: false
-        type: string
-      - name: date-before
-        in: query
-        description: Filter by start date
-        required: false
-        type: string
-      - name: date-after
-        in: query
-        description: Filter by end date
-        required: false
-        type: string
-      - name: type
-        in: query
-        description: Filter by type
-        required: false
-        type: string
       responses:
         "200":
           description: Success
@@ -79,8 +59,8 @@ paths:
 definitions:
   eventItem:
     properties:
-      eventId:
-        type: integer
+    #  eventId:
+    #    type: integer
       date:
         type: string
         format: date
@@ -93,29 +73,34 @@ definitions:
       personsInvolved:
         type: array
         items:
-          $ref: "#/definitions/personsInvolvedItem"
-  personsInvolvedItem:
+          type: integer
+      roles:
+        type: array
+        items:
+          $ref: "#/definitions/rolesItem"
+  rolesItem:
     properties:
-      id:
+      personId:
         type: integer
-      name:
-        type: string
+    #  name:
+    #    type: string
       role:
         type: string
-      relationship:
-        type: string
+    #  relationship:
+    #    type: string
   PersonsResponse:
     properties:
       id:
         type: integer
-      filter:
-        type: string
+    #  filter:
+    #    type: string
       firstName:
         type: string
       lastName:
         type: string
       DOB:
         type: string
+        format: date
       SSN:
         type: string
       gender:
@@ -125,11 +110,11 @@ definitions:
       relationships:
         type: array
         items:
-          type: integer
-      events:
-        type: array
-        items:
-          $ref: "#/definitions/eventItem"
+          type: string
+    #  events:
+    #    type: array
+    #    items:
+    #      $ref: "#/definitions/eventItem"
   ErrorResponse:
     required:
       - message
