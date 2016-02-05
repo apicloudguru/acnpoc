@@ -1,0 +1,32 @@
+<!doctype html>
+<html ng-app="myApp">
+    <head>
+        <title>State of California POC</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+        <script src="controller.js"></script>
+    </head>
+
+    <body>
+        <div ng-controller="myController">
+            <input type="text" ng-model="search" placeholder="Enter id" />
+            <button ng-click="update()">Go</button>
+            <div ng-show="showme">
+            <p>For user {{persons.id}}:</p>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Type</th>
+                </tr>
+                <tr ng-repeat="x in persons.events">
+                    <td>{{x.id}}</td>
+                    <td>{{x.date}}</td>
+                    <td>{{x.status}}</td>
+                    <td>{{x.type}}</td>
+                </tr>
+            </table>
+            </div>
+        </div>
+    </body>
+</html>
